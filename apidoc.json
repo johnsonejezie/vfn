@@ -1,0 +1,8 @@
+{
+    "title": "Vote For Nigeria API documentation",
+    "version": "1.0.0",
+    "description": "API Documentation of all Vote for Nigeria endpoints",
+    "template": {
+        "forceLanguage": "en"
+    }
+}
