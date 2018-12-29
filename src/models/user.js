@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Candidate from './candidate';
 
 const { Schema } = mongoose;
 
@@ -39,6 +40,10 @@ const userSchema = new Schema({
   polling_unit: {
     type: String,
   },
+  candidate: {
+    type: Schema.Types.ObjectId,
+    ref: Candidate
+  },
   channels: {
     type: [Schema.Types.ObjectId],
     default: [],
@@ -46,6 +51,15 @@ const userSchema = new Schema({
 }, {
   timestamp: true,
 });
+
+const populatedCandidate = function(next) {
+  this.populate('candidate');
+  next();
+};
+
+userSchema.
+  pre('findOne', populatedCandidate).
+  pre('find', populatedCandidate);
 
 
 export default mongoose.model('User', userSchema);

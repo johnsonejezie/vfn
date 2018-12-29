@@ -80,4 +80,32 @@ export default (app) => {
  *  }
  */
   app.patch('/api/v1/user/:id', User.update);
+
+   /**
+ * @api {get} /user/:id Get user by id
+ * @apiGroup User
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ * {
+ *   "_id": "5c1f668cd488b0ff1a0a6a4b",
+ *   "first_name": "joseph",
+ *   "last_name": "igwe",
+ *   "vin_full": "030DEF45CF408700767",
+ *   "gender": "male",
+ *   "profession": "artisan",
+ *   "vin": "700767",
+ *   "state_name": "rivers",
+ *   "lga_name": "obio/akpor",
+ *   "ward": "rumueme (7a)",
+ *   "polling_unit": "oro-ekpo, rumuepiri kom i",
+ *   "__v": 0
+ * }
+ * @apiErrorExample {json} List error
+ *    HTTP/1.1 500 Bad Request
+ * {
+ *   "status": 500,
+ *   "message": "Internal server error"
+ *  }
+ */
+ app.get('/api/v1/user/:id', User.userById);
 };

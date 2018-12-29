@@ -92,16 +92,25 @@ const update = async (req, res) => {
   }
 };
 
-const logout = (req, res) => {
-  req.user.removeToken(req.token).then(() => {
-    res.status(204).json({ success: true });
-  }, () => {
-    res.status(400).send();
-  });
+const userById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      throw boom.notFound('Not found');
+    }
+    res.status(200).json(user);
+  } catch(error) {
+    boom.boomify(error);
+    const err = new Error();
+    err.status = error.status || error.output.statusCode || 500;
+    err.message = error.message || 'Internal server error';
+    res.status(err.status).send(err); 
+  }
 };
 
 export default {
   join,
-  logout,
-  update
+  update,
+  userById
 }
