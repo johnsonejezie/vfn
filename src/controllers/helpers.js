@@ -1,4 +1,3 @@
-import sendbird from 'sendbird';
 import fetch from 'node-fetch';
 import State from '../models/state';
 import LGA from '../models/lga';
@@ -116,6 +115,19 @@ const createChannel = async (body, type, ) => {
     });
 };
 
+const sendMessage = async (body, channel_url) => {
+  console.log('here ****************');
+  fetch('https://api.sendbird.com/v3/open_channels/'+channel_url+'/messages', { method: 'POST',
+      body: JSON.stringify(body), 
+      headers: { 'Content-Type': 'application/json', 'Api-Token': process.env.SENDBIRD_TOKEN },
+    })
+    .then(res => res.json()) // expecting a json response
+    .then(json => {
+      console.log(json);
+    });
+}
+
 export default {
   pollingUnit,
+  sendMessage,
 };

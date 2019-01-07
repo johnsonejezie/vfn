@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "apidoc": "^0.17.7",
+    "async": "^2.6.1",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "babel-plugin-inline-import": "^2.0.6",
