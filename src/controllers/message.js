@@ -192,7 +192,7 @@ const create = async (req, res) => {
         sent_by: req.admin._id,
       });
       await aMessage.save();
-      res.status(200).json({ success: true });
+      res.status(200).json(aMessage);
     });
   } catch(error) {
     boom.boomify(error);
@@ -205,7 +205,7 @@ const create = async (req, res) => {
 
 const getMessages = async (req, res) => {
   try {
-    const messages = await Message.find();
+    const messages = await Message.find().populate('sent_by').exec();
     res.status(200).json(messages);
   } catch (error) {
     boom.boomify(error);

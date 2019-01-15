@@ -38,7 +38,7 @@ const messageSchema = new Schema({
     },
     sent_by: {
       type: Schema.Types.ObjectId,
-      ref: Admin,
+      ref: 'Admin',
     },
   },{
     timestamps: true
