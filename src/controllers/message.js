@@ -36,7 +36,7 @@ const create = async (req, res) => {
     let statesArray = [];
     let calls = [];
     if (req.query.state) {
-      const stateString = req.query.state;
+      const stateString = req.query.state.toLowerCase();
       if (stateString.toLowerCase() === 'all') {
         const states = await State.find();
         console.log('###', states);
@@ -44,9 +44,10 @@ const create = async (req, res) => {
           calls.push( async(callback) => {
             states.forEach(async (state, index) => {
                 const channel = await Channel.findOne({ name: state.name });
-                console.log('@@@', channel.url);
-                channels.push(channel.url);
-                statesArray.push(state.name);
+                if (channel) {
+                  channels.push(channel.url);
+                  statesArray.push(state.name);
+                }
                 if (index === states.length - 1) {
                     callback();
                 }
@@ -56,11 +57,13 @@ const create = async (req, res) => {
         }
       } else {
         const states = stateString.split(',');
-        calls.push(async(callback) => {
+        calls.push(async (callback) => {
             states.forEach(async (state, index) => {
                 const channel = await Channel.findOne({ name: state });
-                channels.push(channel.url);
-                statesArray.push(state);
+                if (channel) {
+                  channels.push(channel.url);
+                  statesArray.push(state);
+                }
                 if (index === states.length - 1) {
                     callback();
                 }
@@ -74,15 +77,17 @@ const create = async (req, res) => {
 
     let lgaArray = [];
     if (req.query.lga) {
-      const lgaString = req.query.lga;
+      const lgaString = req.query.lga.toLowerCase();
       if (lgaString.toLowerCase() === 'all') {
         const lgas = await LGA.find();
         if (lgas.length > 0) {
           calls.push(async(callback) => {
             lgas.forEach(async (lga, index) => {
                 const channel = await Channel.findOne({ name: lga.name });
-                channels.push(channel.url);
-                lgaArray.push(lga.name);
+                if (channel) {
+                  hannels.push(channel.url);
+                  lgaArray.push(lga.name);
+                }
                 if (index === lgas.length - 1) {
                     callback();
                 }
@@ -92,11 +97,13 @@ const create = async (req, res) => {
         }
       } else {
         const lgas = lgaString.split(',');
-        calls.forEach(async (callback) => {
+        calls.push(async (callback) => {
             lgas.forEach(async (lga, index) => {
                 const channel = await Channel.findOne({ name: lga });
-                channels.push(channel.url);
-                lgaArray.push(lga);
+                if (channel) {
+                  channels.push(channel.url);
+                  lgaArray.push(lga);
+                }
                 if (index === lgas.length - 1) {
                     callback();
                 }
@@ -108,15 +115,17 @@ const create = async (req, res) => {
 
     let wardArray = [];
     if (req.query.ward) {
-      const wardString = req.query.ward;
+      const wardString = req.query.ward.toLowerCase();
       if (wardString.toLowerCase() === 'all') {
         const wards = await Ward.find();
         if (wards.length > 0) {
           calls.push(async (callback) => {
             wards.forEach(async (ward, index) => {
               const channel = await Channel.findOne({ name: ward.name });
-              channels.push(channel.url);
-              wardArray.push(ward.name);
+              if (channel) {
+                channels.push(channel.url);
+                wardArray.push(ward.name);
+              }
               if (index === wards.length - 1) {
                 callback();
               }
@@ -128,8 +137,10 @@ const create = async (req, res) => {
         calls.push(async (callback) => {
           wards.forEach(async (ward, index) => {
             const channel = await Channel.findOne({ name: ward });
-            channels.push(channel.url);
-            wardArray.push(ward);
+            if (channel) {
+              channels.push(channel.url);
+              wardArray.push(ward);
+            }
             if (index === wards.length - 1) {
               callback();
             }
@@ -140,15 +151,17 @@ const create = async (req, res) => {
 
     let puArray = [];
     if (req.query.polling_unit) {
-      const puString = req.query.polling_unit;
+      const puString = req.query.polling_unit.toLowerCase();
       if (puString.toLowerCase() === 'all') {
         const pus = await Pu.find();
         if (pus.length > 0) {
           calls.push(async(callback) => {
             pus.forEach(async (pu, index) => {
               const channel = await Channel.findOne({ name: pu.name });
-              channels.push(channel.url);
-              puArray.push(pu.name);
+              if (channel) {
+                channels.push(channel.url);
+                puArray.push(pu.name);
+              }
               if (index === pus.length - 1) {
                 callback();
               }
@@ -160,8 +173,10 @@ const create = async (req, res) => {
         calls.push(async (callback) => {
           pus.forEach(async (pu, index) => {
             const channel = await Channel.findOne({ name: pu });
-            channels.push(channel.url);
-            puArray.push(pu);
+            if (channel) {
+              channels.push(channel.url);
+              puArray.push(pu);
+            }
             if (index === pus.length - 1) {
               callback();
             }

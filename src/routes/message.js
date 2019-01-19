@@ -63,7 +63,7 @@ export default (app) => {
  * @apiParam (Query string) {String} polling_unit comma separated list of polling units chatrooms to send message to. e.g ?polling_unit=pu1,pu2, to send to all Polling Unit, user ?polling_unit=all 
  * @apiParam {String} message 
  * @apiParam {Boolean} is_scheduled 
- * @apiParam {String} schedule_date Date to schedule message in ISO format 2018-12-18T15:05:32.000Z
+ * @apiParam {String} scheduled_date Date to schedule message in ISO format 2018-12-18T15:05:32.000Z
 
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
